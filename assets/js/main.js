@@ -35,8 +35,17 @@ $(document).ready(function(){
         $(this).css({ "background" : "white", "color": "black"})
     })
 
+    $(document).on("click", ".btn-eliminar", function() {
+        if(confirm("Seguro que desea eliminar?")){
+            let indice = $(this).attr("id")
+            listado.splice(indice, 1)//splice sirve para indicar de donde deseo eliminar dentro del arreglo
+            listarElectrodomesticos()
+        }
+    })
+
     function listarElectrodomesticos() {
         $("#listado tbody").html("")
+        $("#total-registros").text(listado.length)//contador de elementos total registros .text no interpreta codigo html
         let contador = 0
         for (const electrodomestico of listado) {
             contador+=1
@@ -46,7 +55,7 @@ $(document).ready(function(){
                     <td>${electrodomestico.nombre}</td>
                     <td class="text-capitalize">${electrodomestico.color}</td>
                     <td>
-                        <button class="btn btn-sm btn-danger">Eliminar</button>
+                        <button  id="${contador-1}" class="btn btn-sm btn-danger btn-eliminar">Eliminar</button>
                     </td>
                 </tr>
             `)
